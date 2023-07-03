@@ -26,3 +26,4 @@ class OrderPageLocators:
     LOCATOR_YA_LINK = (By.XPATH, "//a[1]")                                                                              # Ссылка в хедере для перехода на Яндекс.ру
     LOCATOR_SAMOKAT_LINK = (By.XPATH, "//a[2]")
     LOCATOR_SAMOKAT_PAGE = (By.XPATH, "//a[2]")
+    LOCATOR_NEW_PAGE = (By.TAG_NAME, "title")

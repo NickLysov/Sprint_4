@@ -2,6 +2,8 @@ from locators.order_locators import OrderPageLocators
 from pages.base_page import BasePage
 import allure
 
+from helpers import get_name, get_last_name, get_address, get_phone_number
+
 
 class OrderPageHelpers(BasePage):
     @allure.step('Поиска локатора и ввод в его поле значения')
@@ -43,6 +45,21 @@ class OrderPageHelpers(BasePage):
 
     @allure.step('Переход к на главную по кнопке самокат в заголовке')
     def open_samokat(self):
-        self.find_element_located(OrderPageLocators.LOCATOR_CHECK_BUTTON_ORDER, time=2).click()
         self.find_element_located(OrderPageLocators.LOCATOR_SAMOKAT_LINK, time=2).click()
         return str(self.check_url())
+
+    def fill_order_form(self):
+        self.field_order_entering(OrderPageLocators.LOCATOR_NAME_FIELD_ORDER, get_name())
+        self.field_order_entering(OrderPageLocators.LOCATOR_SURNAME_FIELD_ORDER, get_last_name())
+        self.field_order_entering(OrderPageLocators.LOCATOR_ADDRESS_FIELD_ORDER, get_address())
+        self.field_placeholder_entering(OrderPageLocators.LOCATOR_METRO_FIELD_ORDER,
+                                              OrderPageLocators.LOCATOR_SEARCH_SELECT)
+        self.field_order_entering(OrderPageLocators.LOCATOR_TNUMBER_FIELD_ORDER, get_phone_number())
+        self.click_on_order_button()
+        self.field_placeholder_entering(OrderPageLocators.LOCATOR_DATA_FIELD_ORDER,
+                                              OrderPageLocators.LOCATOR_CALENDAR_FIELD_ORDER)
+        self.field_placeholder_entering(OrderPageLocators.LOCATOR_ARENDA_FIELD_ORDER,
+                                              OrderPageLocators.LOCATOR_TERM_SELECT)
+        self.click_checkbox(OrderPageLocators.LOCATOR_GREY_COLOR_ORDER)
+        self.field_order_entering(OrderPageLocators.LOCATOR_COMMENT_FIELD_ORDER, 'Комментариев нет')
+        return self.driver
